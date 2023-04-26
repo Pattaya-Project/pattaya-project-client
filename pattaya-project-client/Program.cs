@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace pattaya_project_client
@@ -14,23 +15,24 @@ namespace pattaya_project_client
 
         private static List<BotCommand> _commands = new List<BotCommand>();
         private static SocketIO _client;
+        private static CancellationTokenSource _tokenSource;
         static async Task Main(string[] args)
         {
 
             LoadBotCommands();
-
+            _tokenSource = new CancellationTokenSource();
             _client = new SocketIO(Config.BotServer, new SocketIOOptions
             {
                 ExtraHeaders = new Dictionary<string, string>
                 {
                     { "Authorization", $"{Config.BotTokenMask} {Config.BotToken}" }
-                }
+                },
+                ConnectionTimeout = Config.BotWSTimeout
             });
 
-            _client.On("bot_receive_task", response =>
+            _client.On(Config.BotReceiveTask, response =>
             {
                 var task = response.GetValue<BotTask>(0);
-                Console.WriteLine(task.Command);
                 ProcessBotTask(task);
 
             });
@@ -39,16 +41,32 @@ namespace pattaya_project_client
             {
                 var botCharacter = Utils.BotUtil.GenerateChracter();
                 Console.WriteLine($"Bot has been connected to server: {Config.BotServer}");
-                await _client.EmitAsync("bot_checkin", botCharacter);
+                await _client.EmitAsync(Config.BotCheckIn, botCharacter);
 
             };
-            await _client.ConnectAsync();
-            Console.ReadLine();
+
+            try
+            {
+                await _client.ConnectAsync();
+
+                while (!_tokenSource.IsCancellationRequested)
+                {
+                    Console.WriteLine("PATTAYAAAA is Good :)");
+                    Thread.Sleep(Config.SignalDelay);
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("PATTAYAAAA is died :(");
+            }
+
+
 
         }
 
         private static void ProcessBotTask(BotTask task)
         {
+
             var command = _commands.FirstOrDefault(c => c.TaskName.Equals(task.Command, StringComparison.OrdinalIgnoreCase));
 
             if (command is null)
@@ -77,7 +95,7 @@ namespace pattaya_project_client
                 TaskId = taskId,
                 Result = result
             };
-            _client.EmitAsync("bot_send_task_result", taskResult);
+            _client.EmitAsync(Config.BotSendResult, taskResult);
         }
 
         private static void LoadBotCommands()
