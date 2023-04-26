@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 
 namespace pattaya_project_client.Models
@@ -16,5 +17,14 @@ namespace pattaya_project_client.Models
 
         [JsonPropertyName("file")]
         public string File { get; set; }
+
+        public byte[] FileBytes
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(File)) return new byte[0];
+                return Convert.FromBase64String(File);
+            }
+        }
     }
 }

