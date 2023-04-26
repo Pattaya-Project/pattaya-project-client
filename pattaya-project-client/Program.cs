@@ -16,9 +16,10 @@ namespace pattaya_project_client
         private static List<BotCommand> _commands = new List<BotCommand>();
         private static SocketIO _client;
         private static CancellationTokenSource _tokenSource;
+        private static BotCharacter _character;
         static async Task Main(string[] args)
         {
-
+            _character = Utils.BotUtil.GenerateChracter();
             LoadBotCommands();
             _tokenSource = new CancellationTokenSource();
             _client = new SocketIO(Config.BotServer, new SocketIOOptions
@@ -39,9 +40,8 @@ namespace pattaya_project_client
 
             _client.OnConnected += async (sender, e) =>
             {
-                var botCharacter = Utils.BotUtil.GenerateChracter();
                 Console.WriteLine($"Bot has been connected to server: {Config.BotServer}");
-                await _client.EmitAsync(Config.BotCheckIn, botCharacter);
+                await _client.EmitAsync(Config.BotCheckIn, _character);
 
             };
 
@@ -53,6 +53,7 @@ namespace pattaya_project_client
                 {
                     Console.WriteLine("PATTAYAAAA is Good :)");
                     Thread.Sleep(Config.SignalDelay);
+                    await _client.EmitAsync(Config.BotCheckIn, _character);
                 }
             }
             catch (Exception)
