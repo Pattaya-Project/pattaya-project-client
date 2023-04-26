@@ -76,11 +76,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Implements\PingBot.cs" />
+    <Compile Include="Commands\Interfaces\BotCommand.cs" />
     <Compile Include="Models\BotCharacter.cs" />
+    <Compile Include="Models\BotTask.cs" />
+    <Compile Include="Models\BotTaskResult.cs" />
     <Compile Include="Models\Config.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ICommunicateService.cs" />
     <Compile Include="Utils\BotUtil.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,7 +91,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
