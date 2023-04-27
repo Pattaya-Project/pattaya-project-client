@@ -34,7 +34,7 @@ namespace pattaya_project_client
             _client.On(Config.BotReceiveTask, response =>
             {
                 var task = response.GetValue<BotTask>(0);
-                ProcessBotTask(task);
+                Task.Run(() => ProcessBotTask(task));
 
             });
 
