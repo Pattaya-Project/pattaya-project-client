@@ -12,7 +12,7 @@ namespace pattaya_project_client.Models
         public static string BotReceiveTask = "bot_receive_task";
         public static string BotCheckIn = "bot_checkin";
 
-        public static TimeSpan BotWSTimeout = TimeSpan.FromSeconds(60);
+        public static TimeSpan BotWSTimeout = TimeSpan.FromMinutes(60);
         public static int SignalDelay = 600000;
 
     }
