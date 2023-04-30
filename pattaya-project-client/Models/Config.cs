@@ -15,7 +15,7 @@ namespace pattaya_project_client.Models
         public static TimeSpan BotWSTimeout = TimeSpan.FromMinutes(60);
         public static int SignalDelay = 600000;
 
-        public static string Version = "[ development verion ]";
+        public static string Version = "[ development version ]";
 
     }
 }
