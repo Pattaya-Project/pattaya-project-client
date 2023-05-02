@@ -15,15 +15,18 @@ namespace pattaya_project_client.Models
         [JsonPropertyName("arguments")]
         public string Arguments { get; set; }
 
-        [JsonPropertyName("file")]
-        public string File { get; set; }
+        [JsonPropertyName("incomingFile")]
+        public string IncomingFile { get; set; }
+
+        [JsonPropertyName("incomingFilename")]
+        public string IncomingFilename { get; set; }
 
         public byte[] FileBytes
         {
             get
             {
-                if (string.IsNullOrEmpty(File)) return new byte[0];
-                return Convert.FromBase64String(File);
+                if (string.IsNullOrEmpty(IncomingFile)) return new byte[0];
+                return Convert.FromBase64String(IncomingFile);
             }
         }
     }
