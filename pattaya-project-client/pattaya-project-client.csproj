@@ -214,6 +214,7 @@
     <Compile Include="Commands\Implements\ChangeDirectory.cs" />
     <Compile Include="Commands\Implements\CreateDirectory.cs" />
     <Compile Include="Commands\Implements\DeleteDirectory.cs" />
+    <Compile Include="Commands\Implements\DownloadFile.cs" />
     <Compile Include="Commands\Implements\ExecuteAssembly.cs" />
     <Compile Include="Commands\Implements\KillBot.cs" />
     <Compile Include="Commands\Implements\ListDirectory.cs" />

