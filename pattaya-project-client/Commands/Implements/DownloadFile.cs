@@ -1,5 +1,6 @@
 ﻿using pattaya_project_client.Commands.Interfaces;
 using pattaya_project_client.Models;
+using pattaya_project_client.Utils;
 using System;
 using System.IO;
 
@@ -40,14 +41,24 @@ namespace pattaya_project_client.Commands.Implements
                 };
             }
 
+            if(BotUtil.isFileSizeExceed(fullPath))
+            {
+                return new BotTaskResult
+                {
+                    TaskId = task.TaskId,
+                    Result = $"{targetFile} size is exeeded (>10MB)...",
+                };
+            }
+
             byte[] fileBytes = File.ReadAllBytes(fullPath);
+
 
             string base64String = Convert.ToBase64String(fileBytes);
 
             return new BotTaskResult
             {
                 TaskId = task.TaskId,
-                Result = $"Downloading...",
+                Result = $"{targetFile} is Downloading...",
                 RespondingFile = base64String,
                 RespondingFilename = targetFile
             };

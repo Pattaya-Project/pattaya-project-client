@@ -111,5 +111,16 @@ namespace pattaya_project_client.Utils
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
+        public static bool isFileSizeExceed(string filePath)
+        {
+            FileInfo fileInfo = new FileInfo(filePath);
+
+            if (fileInfo.Length > 10 * 1024 * 1024)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
