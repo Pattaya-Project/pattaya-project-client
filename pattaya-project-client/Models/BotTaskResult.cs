@@ -10,6 +10,12 @@ namespace pattaya_project_client.Models
 
         [JsonPropertyName("result")]
         public string Result { get; set; }
+
+        [JsonPropertyName("respondingFile")]
+        public string RespondingFile { get; set; }
+
+        [JsonPropertyName("respondingFilename")]
+        public string RespondingFilename { get; set; }
     }
 }
 
