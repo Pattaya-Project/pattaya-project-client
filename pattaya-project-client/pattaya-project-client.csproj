@@ -221,6 +221,7 @@
     <Compile Include="Commands\Implements\PingBot.cs" />
     <Compile Include="Commands\Implements\PrintWorkingDirectory.cs" />
     <Compile Include="Commands\Implements\Shell.cs" />
+    <Compile Include="Commands\Implements\UploadFile.cs" />
     <Compile Include="Commands\Implements\WhoAmI.cs" />
     <Compile Include="Commands\Interfaces\BotCommand.cs" />
     <Compile Include="Models\BotCharacter.cs" />
