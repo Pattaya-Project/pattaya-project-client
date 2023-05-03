@@ -17,7 +17,27 @@ namespace pattaya_project_client
         private static SocketIO _client;
         private static CancellationTokenSource _tokenSource;
         private static BotCharacter _character;
-        static async Task Main(string[] args)
+
+
+        public static void Main(string[] args)
+        {
+            var mutex = new Mutex(false, Assembly.GetEntryAssembly().GetName().Name);
+            if (!mutex.WaitOne(0))
+            {
+                Environment.Exit(1);
+            }
+            try
+            {
+                MainAsync(args).GetAwaiter().GetResult();
+            }
+            finally
+            {
+                mutex.ReleaseMutex();
+            }
+        }
+
+
+        static async Task MainAsync(string[] args)
         {
             Console.Title = $"Pattaya RAT client version: {Config.Version} | Server URL {Config.BotServer} | Bot Tag: {Config.Tag}";
 
