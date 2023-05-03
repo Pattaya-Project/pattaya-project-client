@@ -28,5 +28,11 @@ namespace pattaya_project_client.Models
         public string Country { get; set; }
         [JsonPropertyName("hwid")]
         public string HWID { get; set; }
+
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+
+        [JsonPropertyName("version")]
+        public string Version { get; set; }
     }
 }
