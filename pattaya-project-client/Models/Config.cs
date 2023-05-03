@@ -17,6 +17,7 @@ namespace pattaya_project_client.Models
 
         public static string Version = "[development version]";
         public static string Type = ".NET";
+        public static string Tag = "#PATTAYA_LOVER";
 
     }
 }

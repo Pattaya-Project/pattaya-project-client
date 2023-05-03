@@ -34,5 +34,7 @@ namespace pattaya_project_client.Models
 
         [JsonPropertyName("version")]
         public string Version { get; set; }
+        [JsonPropertyName("tag")]
+        public string Tag { get; set; }
     }
 }

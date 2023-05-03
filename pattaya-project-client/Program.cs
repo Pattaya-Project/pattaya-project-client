@@ -19,7 +19,7 @@ namespace pattaya_project_client
         private static BotCharacter _character;
         static async Task Main(string[] args)
         {
-            Console.Title = $"Pattaya RAT client version: {Config.Version} | Server URL {Config.BotServer}";
+            Console.Title = $"Pattaya RAT client version: {Config.Version} | Server URL {Config.BotServer} | Bot Tag: {Config.Tag}";
 
             _character = Utils.BotUtil.GenerateChracter();
             LoadBotCommands();
